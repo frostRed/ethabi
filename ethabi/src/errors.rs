@@ -78,9 +78,9 @@ impl From<num::ParseIntError> for Error {
 		Error::ParseInt(err)
 	}
 }
-impl From<uint::FromDecStrErr> for Error {
-	fn from(err: uint::FromDecStrErr) -> Self {
-		use uint::FromDecStrErr::*;
+impl From<ethereum_types::FromDecStrErr> for Error {
+	fn from(err: ethereum_types::FromDecStrErr) -> Self {
+		use ethereum_types::FromDecStrErr::*;
 		match err {
 			InvalidCharacter => Error::Other("Uint parse error: InvalidCharacter".into()),
 			InvalidLength => Error::Other("Uint parse error: InvalidLength".into()),

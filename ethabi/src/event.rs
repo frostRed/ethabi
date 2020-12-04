@@ -8,6 +8,7 @@
 
 //! Contract event.
 
+use bytes::Bytes;
 use serde::Deserialize;
 use sha3::{Digest, Keccak256};
 use std::collections::HashMap;
@@ -141,7 +142,7 @@ impl Event {
 		let topic_types =
 			topic_params.iter().map(|p| self.convert_topic_param_type(&p.kind)).collect::<Vec<ParamType>>();
 
-		let flat_topics = topics.into_iter().skip(to_skip).flat_map(|t| t.as_ref().to_vec()).collect::<Vec<u8>>();
+		let flat_topics = topics.into_iter().skip(to_skip).flat_map(|t| t.as_ref().to_vec()).collect::<Bytes>();
 
 		let topic_tokens = decode(&topic_types, &flat_topics)?;
 

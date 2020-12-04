@@ -6,6 +6,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use bytes::Bytes;
+
 use crate::{
 	errors::Error,
 	token::{StrictTokenizer, Tokenizer},
@@ -28,11 +30,11 @@ impl Tokenizer for LenientTokenizer {
 		StrictTokenizer::tokenize_bool(value)
 	}
 
-	fn tokenize_bytes(value: &str) -> Result<Vec<u8>, Error> {
+	fn tokenize_bytes(value: &str) -> Result<Bytes, Error> {
 		StrictTokenizer::tokenize_bytes(value)
 	}
 
-	fn tokenize_fixed_bytes(value: &str, len: usize) -> Result<Vec<u8>, Error> {
+	fn tokenize_fixed_bytes(value: &str, len: usize) -> Result<Bytes, Error> {
 		StrictTokenizer::tokenize_fixed_bytes(value, len)
 	}
 

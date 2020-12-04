@@ -1,6 +1,7 @@
 mod error;
 
 use crate::error::Error;
+use bytes::Bytes;
 use ethabi::{
 	decode, encode,
 	param_type::{ParamType, Reader},
@@ -197,7 +198,7 @@ fn encode_params(params: &[String], lenient: bool) -> Result<String, Error> {
 
 fn decode_call_output(path: &str, name_or_signature: &str, data: &str) -> Result<String, Error> {
 	let function = load_function(path, name_or_signature)?;
-	let data: Vec<u8> = data.from_hex()?;
+	let data: Bytes = data.from_hex()?;
 	let tokens = function.decode_output(&data)?;
 	let types = function.outputs;
 
@@ -216,7 +217,7 @@ fn decode_call_output(path: &str, name_or_signature: &str, data: &str) -> Result
 fn decode_params(types: &[String], data: &str) -> Result<String, Error> {
 	let types: Vec<ParamType> = types.iter().map(|s| Reader::read(s)).collect::<Result<_, _>>()?;
 
-	let data: Vec<u8> = data.from_hex()?;
+	let data: Bytes = data.from_hex()?;
 
 	let tokens = decode(&types, &data)?;
 
